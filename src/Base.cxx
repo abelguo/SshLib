@@ -44,7 +44,7 @@ using namespace std;
 string LoadPw (void) {
 
 #ifdef WIN32
-	ifstream is("C:/Users/Yannick/mdp.txt");
+	ifstream is("C:/Utilisateurs/Yannick/mdp.txt");
 #else
 	ifstream is("/Users/walken/.mdp");
 #endif
