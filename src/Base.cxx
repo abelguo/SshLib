@@ -86,10 +86,15 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
 
 int main(int argc, char *argv[])
 {
+<<<<<<< HEAD
 	//HAPPY IS FUCKING ASS HOLE
     const char *hostname = "192.168.1.2";
+=======
+
+    const char *hostname = "86.202.205.190";
+>>>>>>> cca6142e0ef8af46ee1eafdee903ab3783c79a00
     const char *commandline = "uptime";
-    const char *username    = "root";
+    const char *username    = "jereak";
     string mdp = LoadPw();
     const char *password    = mdp.c_str();
     unsigned long hostaddr;
@@ -107,10 +112,10 @@ int main(int argc, char *argv[])
     int type;
 
 #ifdef WIN32
-
-    WSADATA wsadata;
-    WSAStartup(MAKEWORD(2,0), &wsadata);
-
+    {
+		WSADATA wsadata;
+		WSAStartup(MAKEWORD(2,0), &wsadata);
+    }
 #endif
     if (argc > 1)
         /* must be ip address only */
@@ -141,7 +146,7 @@ int main(int argc, char *argv[])
     sock = socket(AF_INET, SOCK_STREAM, 0);
 
     sin.sin_family = AF_INET;
-    sin.sin_port = htons(22);
+    sin.sin_port = htons(1022);
     sin.sin_addr.s_addr = hostaddr;
     if (connect(sock, (struct sockaddr*)(&sin),
                 sizeof(struct sockaddr_in)) != 0) {
