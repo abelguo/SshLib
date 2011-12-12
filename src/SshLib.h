@@ -20,13 +20,32 @@ private:
 public:
 	SshLib(const std::string host, const int port) throw (SshExc);
 	int authWithPassword(const std::string user, const std::string password)
-																throw (SshExc);
+															throw (SshExc &);
 
-	sshthread_t asyncConnect(void (*ptrCallback)(SshExc *)) throw (SshExc);
+	int authWithPubKey(const std::string privatekey,
+					   const std::string publickey) throw (SshExc &);
+
+	sshthread_t asyncAuthWithPassword(const std::string user,
+									  const std::string password,
+									  void (*ptrCallback)(SshExc *))
+														throw (SshExc &);
 	//TODO delete SshExc * after ptrCallback
-	int execCmd(const std::string cmd) throw (SshExc);
-	sshthread_t asyncExecCmd(void (*ptrCallback)(std::string stdout,
-									std::string stderr)) throw (SshExc);
+	sshthread_t authWithPubKey(const std::string privatekey,
+					   	       const std::string publickey,
+					   	       void (*ptrCallback)(SshExc *)) throw (SshExc &);
+
+	//TODO delete SshExc * after ptrCallback
+	std::string & execCmd(const std::string cmd) throw (SshExc);
+
+	std::string & execCmd(const std::string cmd, const std::string & stderr)
+															throw (SshExc &);
+
+	sshthread_t asyncExecCmd(const std::string cmd,
+					void (*ptrCallback)(std::string stdout, std::string stderr))
+															throw (SshExc &);
+
+	int disconnect() throw (SshExc &);
+
 
 	virtual ~SshLib();
 
