@@ -5,6 +5,7 @@
 #include <string>
 
 #include "SshExc.h"
+#include <pthread.h>
 
 namespace nsSshLib {
 
@@ -29,7 +30,19 @@ public:
 
 	virtual ~SshLib();
 
-	speedConnect();
+	static std::string speedCmd(const std::string host, const int port,
+			const std::string user, const std::string password,
+			const std::string cmd) throw (SshExc &);
+
+	static std::string speedCmd(const std::string host, const int port,
+			const std::string user, const std::string password,
+			const std::string cmd, std::string) throw (SshExc &);
+
+	static sshthread_t asyncSpeedCmd(const std::string host, const int port,
+			const std::string user, const std::string password,
+			const std::string cmd, void (*ptrCallback)(std::string stdout,
+					std::string stderr)) throw (SshExc &);
+
 };
 
 } /* namespace nsSshLib */
