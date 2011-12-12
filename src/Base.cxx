@@ -86,7 +86,6 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
 
 int main(int argc, char *argv[])
 {
-
     const char *hostname = "86.202.205.190";
     const char *commandline = "uptime";
     const char *username    = "jereak";
