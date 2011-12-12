@@ -86,7 +86,7 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
 
 int main(int argc, char *argv[])
 {
-
+	//HAPPY IS FUCKING ASS HOLE
     const char *hostname = "192.168.1.2";
     const char *commandline = "uptime";
     const char *username    = "root";
