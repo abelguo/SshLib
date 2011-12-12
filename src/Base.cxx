@@ -21,6 +21,7 @@
 #include <arpa/inet.h>
 #endif
 
+
 #ifdef WIN32
 #include <winsock2.h>
 #endif
@@ -106,8 +107,10 @@ int main(int argc, char *argv[])
     int type;
 
 #ifdef WIN32
+
     WSADATA wsadata;
     WSAStartup(MAKEWORD(2,0), &wsadata);
+
 #endif
     if (argc > 1)
         /* must be ip address only */
