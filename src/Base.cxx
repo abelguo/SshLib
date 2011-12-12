@@ -43,11 +43,7 @@ using namespace std;
 
 string LoadPw (void) {
 
-#ifdef WIN32
-	ifstream is("C:/Utilisateurs/Yannick/mdp.txt");
-#else
-	ifstream is("/Users/walken/.mdp");
-#endif
+	ifstream is(".mdp");
 	if(is.fail()) cout << "Fichier pw inexistant" << endl;
 	string pw;
 	getline(is, pw);
