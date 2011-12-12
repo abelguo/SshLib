@@ -13,17 +13,21 @@
  */
 
 #include <libssh2.h>
+
 #ifdef __APPLE__
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/select.h>
 #include <arpa/inet.h>
-#include <sys/time.h>
-#include <sys/types.h>
 #endif
+
 #ifdef WIN32
 #include <winsock2.h>
 #endif
+
+#include <sys/time.h>
+#include <sys/types.h>
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -38,7 +42,12 @@
 using namespace std;
 
 string LoadPw (void) {
+
+#ifdef WIN32
+	ifstream is("C:/Users/Yannick/mdp.txt");
+#else
 	ifstream is("/Users/walken/.mdp");
+#endif
 	if(is.fail()) cout << "Fichier pw inexistant" << endl;
 	string pw;
 	getline(is, pw);
@@ -295,8 +304,10 @@ int main(int argc, char *argv[])
     if( rc == 0 )
     {
         exitcode = libssh2_channel_get_exit_status( channel );
+#ifdef __APPLE__
         libssh2_channel_get_exit_signal(channel, &exitsignal,
                                         NULL, NULL, NULL, NULL, NULL);
+#endif
     }
 
     if (exitsignal)
