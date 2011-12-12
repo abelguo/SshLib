@@ -19,6 +19,8 @@ public:
 	int connect();
 	//sshthread_t asyncConnect(
 	virtual ~SshLib();
+
+	speedConnect();
 };
 
 } /* namespace nsSshLib */
