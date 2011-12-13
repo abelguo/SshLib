@@ -55,7 +55,7 @@ public:
 
 	static std::string speedCmd(const std::string host, const int port,
 			const std::string user, const std::string password,
-			const std::string cmd, std::string) throw (SshExc &);
+			const std::string cmd, std::string stdErr) throw (SshExc &);
 
 	static sshthread_t asyncSpeedCmd(const std::string host, const int port,
 			const std::string user, const std::string password,
