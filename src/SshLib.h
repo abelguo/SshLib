@@ -3,66 +3,26 @@
 
 #include <libssh2.h>
 #include <string>
-
-#include "SshExc.h"
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <stdio.h>
 #include <pthread.h>
 
-namespace nsSshLib {
-
-typedef pthread_t * sshthread_t;
-
-class SshLib {
+class Cssh_dll {
 private:
-	int sock;
-	LIBSSH2_SESSION *session;
-	std::string host;
-	int port;
+	int m_sock;
+	LIBSSH2_SESSION * p_m_session;
+    std::string recmesg; // if return error,this is saved  the error infomation
+    int stat;
+    long default_wait_time_sec;
 public:
-	SshLib(const std::string host, const int port) throw (SshExc);
-	int authWithPassword(const std::string user, const std::string password)
-															throw (SshExc &);
-
-	int authWithPubKey(const std::string privatekey,
-					   const std::string publickey) throw (SshExc &);
-
-	sshthread_t asyncAuthWithPassword(const std::string user,
-									  const std::string password,
-									  void (*ptrCallback)(SshExc *))
-														throw (SshExc &);
-	//TODO delete SshExc * after ptrCallback
-	sshthread_t authWithPubKey(const std::string privatekey,
-					   	       const std::string publickey,
-					   	       void (*ptrCallback)(SshExc *)) throw (SshExc &);
-
-	//TODO delete SshExc * after ptrCallback
-	std::string & execCmd(const std::string cmd) throw (SshExc);
-
-	std::string & execCmd(const std::string cmd, const std::string & stderr)
-															throw (SshExc &);
-
-	sshthread_t asyncExecCmd(const std::string cmd,
-					void (*ptrCallback)(std::string stdout, std::string stderr))
-															throw (SshExc &);
-
-	int disconnect() throw (SshExc &);
-
-
-	virtual ~SshLib();
-
-	static std::string speedCmd(const std::string host, const int port,
-			const std::string user, const std::string password,
-			const std::string cmd) throw (SshExc &);
-
-	static std::string speedCmd(const std::string host, const int port,
-			const std::string user, const std::string password,
-			const std::string cmd, std::string stdErr) throw (SshExc &);
-
-	static sshthread_t asyncSpeedCmd(const std::string host, const int port,
-			const std::string user, const std::string password,
-			const std::string cmd, void (*ptrCallback)(std::string stdout,
-					std::string stderr)) throw (SshExc &);
-
+	Cssh_dll(const char *target_ip,int port);
+	virtual ~Cssh_dll();
+	int login(const char* user, const char* password);
+    int cmd(const char *p_cmd,const char *waitstr,long time_sec=default_wait_time_sec);
+    const char * getmesg(void);
+	int disconnect(void);
+    int wait_str(const char* str,long time_sec=default_wait_time_sec);
 };
-
-} /* namespace nsSshLib */
 #endif /* SSHLIB_H_ */
