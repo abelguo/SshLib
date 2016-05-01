@@ -236,6 +236,7 @@ int CCssh::wait_str(const char*str,long wait_time_msec)
 			}
 			else if (n <= 0)
 			{
+                recv_mesg="channel read failed";
 				return -1;
 			}
 			else
