@@ -1,10 +1,10 @@
-GCC:=g++-4.8 -std=c++11 -g
+GCC:=g++-4.8 -std=c++11
 FLAGS_LIB:=-fPIC -shared -I.
 all:libcssh.so main
 main: test.cpp
-	$(GCC) -Wl,-rpath,. -I. -L. $< -o $@ -lcssh -lssh2
+	$(GCC) $(FLAG) -Wl,-rpath,. -I. -L. $< -o $@ -lcssh -lssh2
 libcssh.so:Cssh.cpp
-	$(GCC) $(FLAGS_LIB) $< -o $@ 
+	$(GCC) $(FLAG) $(FLAGS_LIB) $< -o $@ 
 
 
 .PHONY:clean

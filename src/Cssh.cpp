@@ -76,6 +76,7 @@ int CCssh::Connect(const char *username,const char* password)
 	sin.sin_addr.s_addr=inet_addr(host_ip.c_str());
 	sin.sin_port=htons(ssh_port);
 	sin.sin_family=AF_INET;
+    memset(sin.sin_zero,0,sizeof(sin.sin_zero));
 	int stat=connect(m_socket,(sockaddr*)(&sin),sizeof(sockaddr_in));
 	if(stat)
 	{
